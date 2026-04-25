@@ -550,6 +550,187 @@
   .hero > *:nth-child(3) { animation-delay: .2s; }
   .hero > *:nth-child(4) { animation-delay: .28s; }
 
+  /* ── GANTT ── */
+  .gantt-section {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border2);
+  }
+
+  .gantt-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin-bottom: 28px;
+  }
+
+  .gantt-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .gantt-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .gantt-time-ruler {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0;
+    margin-bottom: 6px;
+  }
+
+  .gantt-ruler-inner {
+    display: flex;
+    position: relative;
+  }
+
+  .gantt-tick {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+    position: absolute;
+    transform: translateX(-50%);
+  }
+
+  .gantt-table {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .gantt-group-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin: 10px 0 4px;
+    padding-left: 140px;
+  }
+
+  .gantt-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    align-items: center;
+    gap: 0;
+    min-height: 52px;
+  }
+
+  .gantt-person {
+    padding-right: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .gantt-person-name {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .gantt-person-role {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+  }
+
+  .gantt-bars {
+    display: flex;
+    height: 44px;
+    border-radius: 8px;
+    overflow: hidden;
+    gap: 2px;
+    position: relative;
+  }
+
+  .gantt-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    padding: 0 8px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+    cursor: default;
+    transition: filter .15s;
+  }
+
+  .gantt-bar:hover { filter: brightness(1.15); }
+
+  .gantt-bar-text {
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  /* Phase color palette */
+  .ph-design  { background: rgba(56,189,248,0.18); border: 1px solid rgba(56,189,248,0.35); color: #38bdf8; }
+  .ph-code-be { background: rgba(56,189,248,0.28); border: 1px solid rgba(56,189,248,0.5);  color: #bae6fd; }
+  .ph-code-fe { background: rgba(74,222,128,0.22); border: 1px solid rgba(74,222,128,0.4);  color: #86efac; }
+  .ph-debug   { background: rgba(56,189,248,0.18); border: 1px solid rgba(56,189,248,0.3);  color: #7dd3fc; }
+  .ph-buffer  { background: rgba(74,222,128,0.12); border: 1px solid rgba(74,222,128,0.25); color: #4ade80; }
+  .ph-int     { background: rgba(251,146,60,0.18); border: 1px solid rgba(251,146,60,0.35); color: #fb923c; }
+  .ph-demo    { background: rgba(167,139,250,0.18);border: 1px solid rgba(167,139,250,0.35);color: #c4b5fd; }
+
+  .gantt-dividers {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: flex;
+  }
+
+  .gantt-phase-line {
+    position: absolute;
+    top: -8px;
+    bottom: -8px;
+    width: 1px;
+    background: var(--border2);
+  }
+
+  .gantt-wrapper {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    padding: 24px;
+    overflow-x: auto;
+  }
+
+  .gantt-inner {
+    min-width: 640px;
+  }
+
+  /* tooltip */
+  .gantt-bar[data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e2430;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    border: 1px solid var(--border2);
+    z-index: 10;
+    pointer-events: none;
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 680px) {
     .idea-grid, .rules-grid, .mock-top { grid-template-columns: 1fr; }
@@ -578,11 +759,98 @@
   </div>
 </section>
 
+<!-- GANTT ROADMAP -->
+<section class="gantt-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Who does what — in parallel</h2>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">7 ساعات · كل شخص شغال في نفس الوقت. Hover على أي bar عشان تشوف التفاصيل.</p>
+
+    <div class="gantt-legend">
+      <span class="gantt-legend-item"><span class="gantt-legend-dot ph-design"></span>Design together</span>
+      <span class="gantt-legend-item"><span class="gantt-legend-dot ph-code-be"></span>Backend coding</span>
+      <span class="gantt-legend-item"><span class="gantt-legend-dot ph-code-fe"></span>Frontend coding</span>
+      <span class="gantt-legend-item"><span class="gantt-legend-dot ph-debug"></span>Debug together</span>
+      <span class="gantt-legend-item"><span class="gantt-legend-dot ph-buffer"></span>Buffer / polish</span>
+      <span class="gantt-legend-item"><span class="gantt-legend-dot ph-int"></span>Integration</span>
+      <span class="gantt-legend-item"><span class="gantt-legend-dot ph-demo"></span>Demo prep</span>
+    </div>
+
+    <div class="gantt-wrapper">
+      <div class="gantt-inner">
+
+        <!-- Time ruler -->
+        <div class="gantt-time-ruler">
+          <div></div>
+          <div class="gantt-ruler-inner" id="ruler"></div>
+        </div>
+
+        <div class="gantt-table">
+
+          <!-- BACKEND GROUP -->
+          <div class="gantt-group-label">⬡ Backend</div>
+
+          <!-- Yossef -->
+          <div class="gantt-row">
+            <div class="gantt-person">
+              <span class="gantt-person-name" style="color:var(--be)">Yossef</span>
+              <span class="gantt-person-role">Node.js · DB</span>
+            </div>
+            <div class="gantt-bars" id="bars-yossef"></div>
+          </div>
+
+          <!-- Norhan -->
+          <div class="gantt-row">
+            <div class="gantt-person">
+              <span class="gantt-person-name" style="color:var(--be)">Norhan</span>
+              <span class="gantt-person-role">Node.js · Routes</span>
+            </div>
+            <div class="gantt-bars" id="bars-norhan"></div>
+          </div>
+
+          <!-- Rafiq -->
+          <div class="gantt-row">
+            <div class="gantt-person">
+              <span class="gantt-person-name" style="color:var(--be)">Rafiq</span>
+              <span class="gantt-person-role">Node.js · Auth</span>
+            </div>
+            <div class="gantt-bars" id="bars-rafiq"></div>
+          </div>
+
+          <!-- FRONTEND GROUP -->
+          <div class="gantt-group-label" style="margin-top:16px">⬡ Frontend</div>
+
+          <!-- Asmaa -->
+          <div class="gantt-row">
+            <div class="gantt-person">
+              <span class="gantt-person-name" style="color:var(--fe)">Asmaa</span>
+              <span class="gantt-person-role">HTML · CSS</span>
+            </div>
+            <div class="gantt-bars" id="bars-asmaa"></div>
+          </div>
+
+          <!-- Ahmed Elsayed -->
+          <div class="gantt-row">
+            <div class="gantt-person">
+              <span class="gantt-person-name" style="color:var(--fe)">Ahmed Elsayed</span>
+              <span class="gantt-person-role">React · JS</span>
+            </div>
+            <div class="gantt-bars" id="bars-ahmed"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CORE IDEA -->
 <section class="core-section">
   <div class="container">
     <div class="section-header">
-      <span class="section-num">01</span>
+      <span class="section-num">02</span>
       <h2>The core idea</h2>
     </div>
 
@@ -628,7 +896,7 @@
 <section class="timeline-section">
   <div class="container">
     <div class="section-header">
-      <span class="section-num">02</span>
+      <span class="section-num">03</span>
       <h2>7-hour timeline</h2>
     </div>
     <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">Click any phase to expand details.</p>
@@ -653,9 +921,9 @@
           <div class="tl-cell-body">
             <div class="tl-cell-body-inner">
               All 3 sit together. Draw the DB schema, define every API route (method + URL + request body + response shape), and assign modules. This is your single design session — the output is a committed <code>API_CONTRACT.md</code>.
-              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Yossef → server entry, auth routes, JWT middleware</span></div>
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Yossef → DB schema, models, seed data</span></div>
               <div class="tl-rule"><span class="tl-rule-dot"></span><span>Norhan → core feature routes and controllers</span></div>
-              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Rafiq → DB schema, models, seed data</span></div>
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Rafiq → server entry, auth routes, JWT middleware</span></div>
             </div>
           </div>
         </div>
@@ -776,59 +1044,6 @@
   </div>
 </section>
 
-<!-- MOCK DATA EXPLAINER -->
-<section class="mock-section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-num">03</span>
-      <h2>The mock data trick</h2>
-    </div>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">Frontend builds against fake data that has the exact same shape as the real API. When backend is ready, Ahmed changes one line.</p>
-
-    <div class="mock-box">
-      <div class="mock-top">
-        <div class="mock-panel">
-          <div class="mock-panel-label mock">▸ mockData.js — during coding phase</div>
-          <pre><span class="c-cmt">// Ahmed uses this while backend codes</span>
-<span class="c-key">export const</span> getUser = <span class="c-key">async</span> () => ({
-  <span class="c-str">id</span>: <span class="c-str">"u_001"</span>,
-  <span class="c-str">name</span>: <span class="c-str">"Yossef Ahmed"</span>,
-  <span class="c-str">email</span>: <span class="c-str">"y@mail.com"</span>,
-  <span class="c-str">token</span>: <span class="c-str">"mock_jwt_token"</span>
-});
-
-<span class="c-key">export const</span> getPosts = <span class="c-key">async</span> () => ([
-  { <span class="c-str">id</span>: <span class="c-num">1</span>, <span class="c-str">title</span>: <span class="c-str">"Hello"</span>, <span class="c-str">likes</span>: <span class="c-num">12</span> },
-  { <span class="c-str">id</span>: <span class="c-num">2</span>, <span class="c-str">title</span>: <span class="c-str">"World"</span>, <span class="c-str">likes</span>: <span class="c-num">7</span>  }
-]);</pre>
-        </div>
-        <div class="mock-panel">
-          <div class="mock-panel-label real">▸ api.js — after integration</div>
-          <pre><span class="c-cmt">// Exact same shape, real endpoints</span>
-<span class="c-key">const</span> BASE = <span class="c-str">"http://localhost:5000/api"</span>;
-
-<span class="c-key">export const</span> getUser = <span class="c-key">async</span> () => {
-  <span class="c-key">const</span> res = <span class="c-key">await</span> fetch(<span class="c-str">`${BASE}/auth/me`</span>);
-  <span class="c-key">return</span> res.json();
-};
-
-<span class="c-key">export const</span> getPosts = <span class="c-key">async</span> () => {
-  <span class="c-key">const</span> res = <span class="c-key">await</span> fetch(<span class="c-str">`${BASE}/posts`</span>);
-  <span class="c-key">return</span> res.json();
-};</pre>
-        </div>
-      </div>
-      <div class="mock-bottom">
-        <div>
-          <p>In every React component: <code>import { getUser, getPosts } from '../services/api'</code></p>
-          <p style="margin-top:4px;">Change that one path — from <code>../mocks/mockData</code> to <code>../services/api</code> — and the entire frontend switches to real data. Zero component changes.</p>
-        </div>
-        <span class="swap-badge">1 line change</span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- RULES -->
 <section class="rules-section">
   <div class="container">
@@ -870,7 +1085,97 @@
 </footer>
 
 <script>
-  function toggleRow(row) {
+  // ── GANTT ENGINE ──
+  // Total = 420 min
+  const TOTAL = 420;
+
+  // Phases: [start_min, duration_min, cssClass, label, tooltip]
+  const phases = [
+    { start: 0,   dur: 45,  cls: 'ph-design',  label: 'Design',           tip: '0:00–0:45 · Architecture & API contract' },
+    { start: 45,  dur: 195, cls: 'ph-code-be',  label: 'DB + Models',      tip: '0:45–4:00 · Prisma schema, models, relations, seed data' },
+    { start: 240, dur: 60,  cls: 'ph-debug',    label: 'Debug',            tip: '4:00–5:00 · Merge branches, test all routes together' },
+    { start: 300, dur: 60,  cls: 'ph-int',      label: 'Integration',      tip: '5:00–6:00 · Fix data layer issues live' },
+    { start: 360, dur: 60,  cls: 'ph-demo',     label: 'Demo',             tip: '6:00–7:00 · Seed DB with realistic demo data' },
+  ];
+
+  const norhanPhases = [
+    { start: 0,   dur: 45,  cls: 'ph-design',  label: 'Design',           tip: '0:00–0:45 · Architecture & API contract' },
+    { start: 45,  dur: 195, cls: 'ph-code-be',  label: 'Feature Routes',   tip: '0:45–4:00 · Core feature routes & controllers' },
+    { start: 240, dur: 60,  cls: 'ph-debug',    label: 'Debug',            tip: '4:00–5:00 · Merge & test all routes together' },
+    { start: 300, dur: 60,  cls: 'ph-int',      label: 'Integration',      tip: '5:00–6:00 · Blocker-buster: unblock whoever is stuck' },
+    { start: 360, dur: 60,  cls: 'ph-demo',     label: 'Demo',             tip: '6:00–7:00 · Freeze, rehearse, screen recording backup' },
+  ];
+
+  const rafiqPhases = [
+    { start: 0,   dur: 45,  cls: 'ph-design',  label: 'Design',           tip: '0:00–0:45 · Architecture & API contract' },
+    { start: 45,  dur: 195, cls: 'ph-code-be',  label: 'Server + Auth',    tip: '0:45–4:00 · Server setup, JWT, auth routes' },
+    { start: 240, dur: 60,  cls: 'ph-debug',    label: 'Debug',            tip: '4:00–5:00 · Merge & test all routes together' },
+    { start: 300, dur: 60,  cls: 'ph-int',      label: 'Integration',      tip: '5:00–6:00 · Fix auth & route bugs live' },
+    { start: 360, dur: 60,  cls: 'ph-demo',     label: 'Demo',             tip: '6:00–7:00 · Seed DB, freeze code, rehearse' },
+  ];
+
+  const asmaaPhases = [
+    { start: 0,   dur: 45,  cls: 'ph-code-fe',  label: 'HTML Structure',   tip: '0:00–0:45 · Full HTML layout for all pages' },
+    { start: 45,  dur: 195, cls: 'ph-code-fe',  label: 'Full CSS',         tip: '0:45–4:00 · All pages, states, responsive layout' },
+    { start: 240, dur: 60,  cls: 'ph-buffer',   label: 'Edge Cases',       tip: '4:00–5:00 · Empty states, loading states, error UI' },
+    { start: 300, dur: 60,  cls: 'ph-int',      label: 'Integration',      tip: '5:00–6:00 · Final styling fixes after real data connects' },
+    { start: 360, dur: 60,  cls: 'ph-demo',     label: 'Demo',             tip: '6:00–7:00 · Final polish & demo prep' },
+  ];
+
+  const ahmedPhases = [
+    { start: 0,   dur: 45,  cls: 'ph-code-fe',  label: 'Setup + Mocks',    tip: '0:00–0:45 · Vite, React Router, mockData.js matching API contract' },
+    { start: 45,  dur: 195, cls: 'ph-code-fe',  label: 'React Components', tip: '0:45–4:00 · All components + JS logic using mock data' },
+    { start: 240, dur: 60,  cls: 'ph-buffer',   label: 'API Layer',        tip: '4:00–5:00 · Build api.js service, error handling, loading states' },
+    { start: 300, dur: 60,  cls: 'ph-int',      label: 'Swap + Test',      tip: '5:00–6:00 · Swap mock → real API, test every user flow' },
+    { start: 360, dur: 60,  cls: 'ph-demo',     label: 'Demo',             tip: '6:00–7:00 · Final QA + demo rehearsal' },
+  ];
+
+  function buildBars(containerId, phaseList) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    phaseList.forEach(p => {
+      const bar = document.createElement('div');
+      bar.className = 'gantt-bar ' + p.cls;
+      bar.style.width = (p.dur / TOTAL * 100) + '%';
+      bar.setAttribute('data-tip', p.tip);
+      const txt = document.createElement('span');
+      txt.className = 'gantt-bar-text';
+      txt.textContent = p.label;
+      bar.appendChild(txt);
+      el.appendChild(bar);
+    });
+  }
+
+  buildBars('bars-yossef', phases);
+  buildBars('bars-norhan', norhanPhases);
+  buildBars('bars-rafiq',  rafiqPhases);
+  buildBars('bars-asmaa',  asmaaPhases);
+  buildBars('bars-ahmed',  ahmedPhases);
+
+  // Build time ruler ticks
+  const ruler = document.getElementById('ruler');
+  if (ruler) {
+    ruler.style.position = 'relative';
+    ruler.style.height = '18px';
+    const ticks = [
+      { min: 0, label: '0:00' },
+      { min: 45, label: '0:45' },
+      { min: 240, label: '4:00' },
+      { min: 300, label: '5:00' },
+      { min: 360, label: '6:00' },
+      { min: 420, label: '7:00' },
+    ];
+    ticks.forEach(t => {
+      const tick = document.createElement('span');
+      tick.className = 'gantt-tick';
+      tick.textContent = t.label;
+      tick.style.left = (t.min / TOTAL * 100) + '%';
+      ruler.appendChild(tick);
+    });
+  }
+</script>
+
+
     const bodies = row.querySelectorAll('.tl-cell-body');
     const isExpanded = row.classList.contains('expanded');
 
