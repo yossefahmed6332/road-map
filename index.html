@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hackathon Roadmap — 7 Hours</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080b0f;
+    --bg2: #0e1218;
+    --bg3: #141920;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.13);
+    --text: #e8eaed;
+    --muted: #7a8290;
+    --dim: #3d4450;
+    --be: #38bdf8;
+    --be-dim: rgba(56,189,248,0.1);
+    --be-border: rgba(56,189,248,0.25);
+    --fe: #4ade80;
+    --fe-dim: rgba(74,222,128,0.1);
+    --fe-border: rgba(74,222,128,0.25);
+    --warn: #fb923c;
+    --warn-dim: rgba(251,146,60,0.1);
+    --warn-border: rgba(251,146,60,0.25);
+    --accent: #a78bfa;
+    --mono: 'IBM Plex Mono', monospace;
+    --display: 'Syne', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--display);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* GRID TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--border2);
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--be);
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--be);
+  }
+
+  h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    margin-bottom: 20px;
+  }
+  h1 span { color: var(--be); }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 560px;
+    margin-bottom: 40px;
+  }
+
+  .team-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pill {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 100px;
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .pill-be { border-color: var(--be-border); color: var(--be); background: var(--be-dim); }
+  .pill-fe { border-color: var(--fe-border); color: var(--fe); background: var(--fe-dim); }
+  .pill-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .pill-be .pill-dot { background: var(--be); }
+  .pill-fe .pill-dot { background: var(--fe); }
+
+  /* ── CORE IDEA ── */
+  .core-section {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border2);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+  }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -.01em;
+  }
+
+  .idea-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border2);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .idea-card {
+    background: var(--bg2);
+    padding: 24px;
+  }
+
+  .idea-card-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .idea-card-label.be { color: var(--be); }
+  .idea-card-label.fe { color: var(--fe); }
+
+  .idea-card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .idea-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .flow-steps {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .flow-step {
+    flex: 1;
+    padding: 16px 12px;
+    text-align: center;
+    position: relative;
+  }
+
+  .flow-step + .flow-step::before {
+    content: '→';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--dim);
+    font-size: 14px;
+  }
+
+  .flow-step-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .flow-step-name {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .flow-step.be-step .flow-step-name { color: var(--be); }
+  .flow-step.warn-step .flow-step-name { color: var(--warn); }
+  .flow-step.fe-step .flow-step-name { color: var(--fe); }
+
+  /* ── TIMELINE ── */
+  .timeline-section {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border2);
+  }
+
+  .timeline-header-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr;
+    gap: 1px;
+    background: var(--border2);
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+    border: 1px solid var(--border2);
+    border-bottom: none;
+  }
+
+  .th-cell {
+    background: var(--bg3);
+    padding: 10px 16px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .th-cell.be-h { color: var(--be); border-top: 2px solid var(--be); }
+  .th-cell.fe-h { color: var(--fe); border-top: 2px solid var(--fe); }
+  .th-cell.t-h  { color: var(--muted); border-top: 2px solid var(--dim); }
+
+  .timeline-body {
+    border: 1px solid var(--border2);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+  }
+
+  .tl-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border2);
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .tl-row:last-child { border-bottom: none; }
+  .tl-row:hover { background: rgba(255,255,255,0.02); }
+
+  .tl-row.expanded { background: rgba(255,255,255,0.02); }
+
+  .tl-time {
+    padding: 18px 16px;
+    border-right: 1px solid var(--border2);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 3px;
+    background: var(--bg2);
+  }
+
+  .tl-time-main {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .tl-time-dur {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+  }
+
+  .tl-cell {
+    padding: 18px 20px;
+    border-right: 1px solid var(--border2);
+  }
+  .tl-cell:last-child { border-right: none; }
+
+  .tl-cell-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .tag-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+  .tl-cell-tag.be-tag { color: var(--be); }
+  .tl-cell-tag.be-tag .tag-dot { background: var(--be); }
+  .tl-cell-tag.fe-tag { color: var(--fe); }
+  .tl-cell-tag.fe-tag .tag-dot { background: var(--fe); }
+  .tl-cell-tag.warn-tag { color: var(--warn); }
+  .tl-cell-tag.warn-tag .tag-dot { background: var(--warn); }
+  .tl-cell-tag.dim-tag { color: var(--muted); }
+  .tl-cell-tag.dim-tag .tag-dot { background: var(--dim); }
+
+  .tl-cell-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .expand-icon {
+    font-size: 16px;
+    color: var(--dim);
+    transition: transform .25s;
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+  .expanded .expand-icon { transform: rotate(45deg); }
+
+  .tl-cell-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .35s ease, opacity .25s ease;
+    opacity: 0;
+  }
+  .tl-cell-body.open {
+    max-height: 400px;
+    opacity: 1;
+  }
+
+  .tl-cell-body-inner {
+    padding-top: 12px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .tl-rule {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 8px;
+    font-size: 12px;
+  }
+
+  .tl-rule-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--dim);
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  code {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: rgba(255,255,255,0.07);
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: var(--accent);
+  }
+
+  .span-row {
+    grid-column: 2 / -1;
+  }
+
+  .span-row .tl-cell {
+    border-right: none;
+  }
+
+  /* special full-width row */
+  .tl-row.full {
+    grid-template-columns: 100px 1fr;
+  }
+
+  /* ── RULES SECTION ── */
+  .rules-section {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border2);
+  }
+
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .rule-card {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 20px;
+    transition: border-color .2s;
+  }
+  .rule-card:hover { border-color: var(--border2); }
+
+  .rule-card-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+    margin-bottom: 8px;
+  }
+
+  .rule-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .rule-card-body {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── MOCK DATA EXPLAINER ── */
+  .mock-section {
+    padding: 60px 0;
+  }
+
+  .mock-box {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .mock-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border2);
+    border-bottom: 1px solid var(--border2);
+  }
+
+  .mock-panel {
+    background: var(--bg2);
+    padding: 24px;
+  }
+
+  .mock-panel-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .mock-panel-label.mock { color: var(--warn); }
+  .mock-panel-label.real { color: var(--fe); }
+
+  pre {
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.7;
+    color: #9ca3af;
+    overflow-x: auto;
+  }
+
+  .c-key    { color: #60a5fa; }
+  .c-str    { color: #86efac; }
+  .c-num    { color: #fb923c; }
+  .c-cmt    { color: #4b5563; }
+  .c-bool   { color: #c084fc; }
+  .c-hi     { color: #fde68a; }
+
+  .mock-bottom {
+    padding: 16px 24px;
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mock-bottom p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .swap-badge {
+    flex-shrink: 0;
+    font-family: var(--mono);
+    font-size: 11px;
+    background: rgba(74,222,128,0.12);
+    color: var(--fe);
+    border: 1px solid var(--fe-border);
+    padding: 4px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border2);
+    padding: 32px 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero > * { animation: fadeUp .5s ease both; }
+  .hero > *:nth-child(1) { animation-delay: .05s; }
+  .hero > *:nth-child(2) { animation-delay: .12s; }
+  .hero > *:nth-child(3) { animation-delay: .2s; }
+  .hero > *:nth-child(4) { animation-delay: .28s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    .idea-grid, .rules-grid, .mock-top { grid-template-columns: 1fr; }
+    .timeline-header-row, .tl-row { grid-template-columns: 80px 1fr; }
+    .tl-row .tl-cell:nth-child(3) { display: none; }
+    .th-cell.fe-h { display: none; }
+    h1 { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag">Hackathon strategy · 7 hours</div>
+    <h1>Design together.<br>Code together.<br><span>Ship together.</span></h1>
+    <p class="hero-sub">A parallel-track roadmap for your 5-person team. The backend trio moves as one synchronized unit — while frontend builds independently and finishes first.</p>
+    <div class="team-pills">
+      <span class="pill pill-be"><span class="pill-dot"></span>Yossef — Node.js</span>
+      <span class="pill pill-be"><span class="pill-dot"></span>Norhan — Node.js</span>
+      <span class="pill pill-be"><span class="pill-dot"></span>Rafiq — Node.js</span>
+      <span class="pill pill-fe"><span class="pill-dot"></span>Asmaa — HTML/CSS</span>
+      <span class="pill pill-fe"><span class="pill-dot"></span>Ahmed Elsayed — React</span>
+    </div>
+  </div>
+</section>
+
+<!-- CORE IDEA -->
+<section class="core-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>The core idea</h2>
+    </div>
+
+    <div class="idea-grid">
+      <div class="idea-card">
+        <div class="idea-card-label be">Backend trio</div>
+        <h3>One unit, three phases</h3>
+        <p>Yossef, Norhan, and Rafiq always move together. You design at the same time, code at the same time, and debug at the same time. Being in the same space means a blocker gets resolved in 30 seconds — not after a 20-minute call.</p>
+      </div>
+      <div class="idea-card">
+        <div class="idea-card-label fe">Frontend duo</div>
+        <h3>Fully independent track</h3>
+        <p>Asmaa and Ahmed never wait for backend. They build against a mock data file that has the exact same shape as the real API. When backend is ready, Ahmed swaps one import line. No rewrites. No surprises.</p>
+      </div>
+    </div>
+
+    <div class="flow-steps">
+      <div class="flow-step be-step">
+        <span class="flow-step-num">01</span>
+        <span class="flow-step-name">Design<br>together</span>
+      </div>
+      <div class="flow-step be-step">
+        <span class="flow-step-num">02</span>
+        <span class="flow-step-name">Code<br>together</span>
+      </div>
+      <div class="flow-step be-step">
+        <span class="flow-step-num">03</span>
+        <span class="flow-step-name">Debug<br>together</span>
+      </div>
+      <div class="flow-step warn-step">
+        <span class="flow-step-num">04</span>
+        <span class="flow-step-name">Integrate<br>with FE</span>
+      </div>
+      <div class="flow-step fe-step">
+        <span class="flow-step-num">05</span>
+        <span class="flow-step-name">Demo<br>polish</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>7-hour timeline</h2>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">Click any phase to expand details.</p>
+
+    <div class="timeline-header-row">
+      <div class="th-cell t-h">Time</div>
+      <div class="th-cell be-h">Backend — Yossef · Norhan · Rafiq</div>
+      <div class="th-cell fe-h">Frontend — Asmaa · Ahmed Elsayed</div>
+    </div>
+
+    <div class="timeline-body">
+
+      <!-- Phase 1 -->
+      <div class="tl-row" onclick="toggleRow(this)">
+        <div class="tl-time">
+          <span class="tl-time-main">0:00</span>
+          <span class="tl-time-dur">45 min</span>
+        </div>
+        <div class="tl-cell" style="border-top:2px solid var(--be)">
+          <div class="tl-cell-tag be-tag"><span class="tag-dot"></span>Design together</div>
+          <div class="tl-cell-title">Architecture session <span class="expand-icon">+</span></div>
+          <div class="tl-cell-body">
+            <div class="tl-cell-body-inner">
+              All 3 sit together. Draw the DB schema, define every API route (method + URL + request body + response shape), and assign modules. This is your single design session — the output is a committed <code>API_CONTRACT.md</code>.
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Yossef → server entry, auth routes, JWT middleware</span></div>
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Norhan → core feature routes and controllers</span></div>
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Rafiq → DB schema, models, seed data</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="tl-cell" style="border-top:2px solid var(--fe)">
+          <div class="tl-cell-tag fe-tag"><span class="tag-dot"></span>Running in parallel</div>
+          <div class="tl-cell-title">Foundation setup <span class="expand-icon">+</span></div>
+          <div class="tl-cell-body">
+            <div class="tl-cell-body-inner">
+              Don't wait for backend to finish designing. Start immediately.
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Asmaa builds full HTML structure across all pages</span></div>
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Ahmed sets up Vite + React Router + folder structure</span></div>
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>As soon as the contract is pushed, Ahmed creates <code>mockData.js</code> matching the exact response shapes</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="tl-row" onclick="toggleRow(this)">
+        <div class="tl-time">
+          <span class="tl-time-main">0:45</span>
+          <span class="tl-time-dur">3h 15min</span>
+        </div>
+        <div class="tl-cell" style="border-top:2px solid var(--be)">
+          <div class="tl-cell-tag be-tag"><span class="tag-dot"></span>Code together</div>
+          <div class="tl-cell-title">Parallel module coding <span class="expand-icon">+</span></div>
+          <div class="tl-cell-body">
+            <div class="tl-cell-body-inner">
+              "Together" means at the same time and in the same space — each person codes their own module, but blockers get resolved in seconds because you're right there.
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>No one touches another person's files. Strict ownership.</span></div>
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Stuck for 10+ min? Say it out loud immediately — don't silently struggle for 40 minutes.</span></div>
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Push to your branch every 30–45 min. Small, frequent commits.</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="tl-cell" style="border-top:2px solid var(--fe)">
+          <div class="tl-cell-tag fe-tag"><span class="tag-dot"></span>Running in parallel</div>
+          <div class="tl-cell-title">Full React build <span class="expand-icon">+</span></div>
+          <div class="tl-cell-body">
+            <div class="tl-cell-body-inner">
+              Ahmed builds all React components wired to mock data. Asmaa polishes CSS across all pages, loading states, and empty states. Frontend should be feature-complete by hour 4 — ahead of backend on purpose.
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Mock data has the exact same shape as the API contract.</span></div>
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Swapping to real API = one import line, not a component rewrite.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="tl-row" onclick="toggleRow(this)">
+        <div class="tl-time">
+          <span class="tl-time-main">4:00</span>
+          <span class="tl-time-dur">1 hour</span>
+        </div>
+        <div class="tl-cell" style="border-top:2px solid var(--be)">
+          <div class="tl-cell-tag be-tag"><span class="tag-dot"></span>Debug together</div>
+          <div class="tl-cell-title">Merge and test all routes <span class="expand-icon">+</span></div>
+          <div class="tl-cell-body">
+            <div class="tl-cell-body-inner">
+              All 3 merge to <code>dev</code> together. Run the full server and test every contract endpoint with Thunder Client or Postman. Fix bugs together — three sets of eyes on the same screen.
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>One person tests, two read the response and spot the issue.</span></div>
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>If a route is broken, the module owner fixes it while the other two watch and help.</span></div>
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Don't split off to debug alone. The whole point is three eyes on every bug.</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="tl-cell" style="border-top:2px solid var(--fe)">
+          <div class="tl-cell-tag dim-tag"><span class="tag-dot"></span>Buffer time</div>
+          <div class="tl-cell-title">Edge cases + polish <span class="expand-icon">+</span></div>
+          <div class="tl-cell-body">
+            <div class="tl-cell-body-inner">
+              Frontend is done or near-done. Use this hour to handle edge cases: empty states, error messages, responsive layout, loading skeletons. Being done early is the goal — it gives integration room to breathe.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 4 — Integration (full width) -->
+      <div class="tl-row full" onclick="toggleRow(this)">
+        <div class="tl-time">
+          <span class="tl-time-main">5:00</span>
+          <span class="tl-time-dur">1 hour</span>
+        </div>
+        <div class="tl-cell" style="border-top:2px solid var(--warn)">
+          <div class="tl-cell-tag warn-tag"><span class="tag-dot"></span>Everyone together — Integration sprint</div>
+          <div class="tl-cell-title">Connect frontend to live backend <span class="expand-icon">+</span></div>
+          <div class="tl-cell-body">
+            <div class="tl-cell-body-inner">
+              Ahmed swaps mock data for real API calls. Everyone walks through each user flow end-to-end. Backend devs stay on standby — if a route returns wrong data, the module owner fixes it immediately while others keep testing other flows.
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Walk the demo click path first. Fix that flow before anything else.</span></div>
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>P1 = demo-breaking. P2 = annoying. P3 = cosmetic. Only fix P1s.</span></div>
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>One person owns CORS and env config — don't let three people debug the same config file.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 5 — Demo -->
+      <div class="tl-row full" onclick="toggleRow(this)">
+        <div class="tl-time">
+          <span class="tl-time-main">6:00</span>
+          <span class="tl-time-dur">1 hour</span>
+        </div>
+        <div class="tl-cell" style="border-top:2px solid var(--dim)">
+          <div class="tl-cell-tag dim-tag"><span class="tag-dot"></span>Everyone — Demo polish</div>
+          <div class="tl-cell-title">Freeze, seed, rehearse <span class="expand-icon">+</span></div>
+          <div class="tl-cell-body">
+            <div class="tl-cell-body-inner">
+              Seed the DB with realistic demo data — nothing kills a demo like empty screens. Assign one calm presenter (not the one who built the feature). Rehearse the exact click path twice.
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>No new features after 6:30. Freeze the code. Stability over scope.</span></div>
+              <div class="tl-rule"><span class="tl-rule-dot"></span><span>Record a 2-minute screen recording as a backup if the live demo crashes.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MOCK DATA EXPLAINER -->
+<section class="mock-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>The mock data trick</h2>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">Frontend builds against fake data that has the exact same shape as the real API. When backend is ready, Ahmed changes one line.</p>
+
+    <div class="mock-box">
+      <div class="mock-top">
+        <div class="mock-panel">
+          <div class="mock-panel-label mock">▸ mockData.js — during coding phase</div>
+          <pre><span class="c-cmt">// Ahmed uses this while backend codes</span>
+<span class="c-key">export const</span> getUser = <span class="c-key">async</span> () => ({
+  <span class="c-str">id</span>: <span class="c-str">"u_001"</span>,
+  <span class="c-str">name</span>: <span class="c-str">"Yossef Ahmed"</span>,
+  <span class="c-str">email</span>: <span class="c-str">"y@mail.com"</span>,
+  <span class="c-str">token</span>: <span class="c-str">"mock_jwt_token"</span>
+});
+
+<span class="c-key">export const</span> getPosts = <span class="c-key">async</span> () => ([
+  { <span class="c-str">id</span>: <span class="c-num">1</span>, <span class="c-str">title</span>: <span class="c-str">"Hello"</span>, <span class="c-str">likes</span>: <span class="c-num">12</span> },
+  { <span class="c-str">id</span>: <span class="c-num">2</span>, <span class="c-str">title</span>: <span class="c-str">"World"</span>, <span class="c-str">likes</span>: <span class="c-num">7</span>  }
+]);</pre>
+        </div>
+        <div class="mock-panel">
+          <div class="mock-panel-label real">▸ api.js — after integration</div>
+          <pre><span class="c-cmt">// Exact same shape, real endpoints</span>
+<span class="c-key">const</span> BASE = <span class="c-str">"http://localhost:5000/api"</span>;
+
+<span class="c-key">export const</span> getUser = <span class="c-key">async</span> () => {
+  <span class="c-key">const</span> res = <span class="c-key">await</span> fetch(<span class="c-str">`${BASE}/auth/me`</span>);
+  <span class="c-key">return</span> res.json();
+};
+
+<span class="c-key">export const</span> getPosts = <span class="c-key">async</span> () => {
+  <span class="c-key">const</span> res = <span class="c-key">await</span> fetch(<span class="c-str">`${BASE}/posts`</span>);
+  <span class="c-key">return</span> res.json();
+};</pre>
+        </div>
+      </div>
+      <div class="mock-bottom">
+        <div>
+          <p>In every React component: <code>import { getUser, getPosts } from '../services/api'</code></p>
+          <p style="margin-top:4px;">Change that one path — from <code>../mocks/mockData</code> to <code>../services/api</code> — and the entire frontend switches to real data. Zero component changes.</p>
+        </div>
+        <span class="swap-badge">1 line change</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section class="rules-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Communication rules</h2>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">No meetings. All async. Only GitHub.</p>
+
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-card-num">Rule 01</div>
+        <div class="rule-card-title">The 10-minute rule</div>
+        <div class="rule-card-body">If you're stuck for more than 10 minutes, say it out loud (if together) or drop a GitHub comment on your own PR tagging the relevant person. Don't call a meeting.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-card-num">Rule 02</div>
+        <div class="rule-card-title">Small PRs only</div>
+        <div class="rule-card-body">Every PR is focused and small. No one pushes a 400-line commit. Small PRs get reviewed in 3 minutes. Giant PRs cause merge conflicts and arguments.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-card-num">Rule 03</div>
+        <div class="rule-card-title">The contract is law</div>
+        <div class="rule-card-body">If a backend route needs to change shape, update <code>API_CONTRACT.md</code> AND immediately notify Ahmed. He updates his mock data to match. No surprises during integration.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-card-num">Rule 04</div>
+        <div class="rule-card-title">One merge owner</div>
+        <div class="rule-card-body">Yossef handles all merges to <code>main</code>. Everyone else merges to <code>dev</code> only. This prevents the classic "who broke main?" situation at hour 5.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>Hackathon Roadmap · 7 hours · 5 devs · 1 ship</span>
+  </div>
+</footer>
+
+<script>
+  function toggleRow(row) {
+    const bodies = row.querySelectorAll('.tl-cell-body');
+    const isExpanded = row.classList.contains('expanded');
+
+    row.classList.toggle('expanded', !isExpanded);
+    bodies.forEach(b => b.classList.toggle('open', !isExpanded));
+  }
+</script>
+
+</body>
+</html>
